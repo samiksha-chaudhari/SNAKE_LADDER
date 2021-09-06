@@ -11,7 +11,8 @@ namespace SnakeAndLadder
             {17, 7}, {54, 34}, {62, 19}, {64, 60}, {87, 24}, {93, 73}, {95, 75}, {99, 78},
         };
         private static Random rand = new Random();
-       
+        private const bool sixesThrowAgain = true;
+
         static int Turn(int player, int square)
         {
             while (true)
@@ -41,7 +42,7 @@ namespace SnakeAndLadder
                     else if (square > next)
                     {
                         Console.WriteLine("Oops! Landed on a snake. Slither down to {0}.", next);
-                        square = next;                   
+                        square = next;
                     }
                 }
                
@@ -50,7 +51,8 @@ namespace SnakeAndLadder
 
         static void Main(string[] args)
         {
-            int[] players = { 1 };
+
+            int[] players = { 1, 1};
             while (true)
             {
                 for (int i = 0; i < players.Length; i++)
