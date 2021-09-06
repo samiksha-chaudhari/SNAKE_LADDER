@@ -1,18 +1,65 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace SNAKE_AND_LADDER
+namespace SnakeAndLadder
 {
     class Program
     {
-
-        private static Random rand = new Random();
-        
-        static void Main(string[] args)
+        private static Dictionary<int, int> snl = new Dictionary<int, int>()
         {
-            int roll = rand.Next(1, 6);
-            Console.WriteLine("WELCOME TO SNAKE AND LADDER GAME");
-            Console.WriteLine( "dice roll a :" + roll );        
+            {4, 14}, {9, 31}, {20, 38}, {28, 84}, {40, 59}, {51, 67}, {63, 81}, {71, 91},
+            {17, 7}, {54, 34}, {62, 19}, {64, 60}, {87, 24}, {93, 73}, {95, 75}, {99, 78},
+        };
+        private static Random rand = new Random();
+        static int Turn(int player, int square)
+        {
+           while (true)
+           {
+                int roll = rand.Next(1, 6);
+                Console.Write("Player {0}, on square {1}, rolls a {2}", player, square, roll);
+                    square += roll;
+                    Console.WriteLine(" and moves to square {0}", square);
+                    if (square == 100) return 100;
+                    int next = square;
+                    if (snl.ContainsKey(square))
+                    {
+                        next = snl[square];
+                    }
+                    if (square < next)
+                    {
+                        Console.WriteLine("Yay! Landed on a ladder. Climb up to {0}.", next);
+                        if (next == 100) return 100;
+                        square = next;
+                    }
+                     if (square > next)
+                    {
+                        Console.WriteLine("Oops! Landed on a snake. Slither down to {0}.", next);
+                        square = next;
+                        
+                    }
+          
+                
+           }
         }
 
+        static void Main(string[] args)
+        {
+            // one player on square one
+            int[] players = { 1 };
+            while (true)
+            {
+                for (int i = 0; i < players.Length; i++)
+                {
+                    int ns = Turn(i + 1, players[i]);
+                    if (ns == 100)
+                    {
+                        Console.WriteLine("Player {0} wins!", i + 1);
+                        return;
+                    }
+                    players[i] = ns;
+                    Console.WriteLine();
+                }
+            }
+        }
     }
 }
