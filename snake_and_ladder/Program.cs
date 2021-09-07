@@ -45,7 +45,8 @@ namespace SnakeAndLadder
                         square = next;
                     }
                 }
-               
+                if (roll < 6 || !sixesThrowAgain) return square;
+                Console.WriteLine("Rolled a 6 so roll again.");
             }
         }
 
